@@ -2,6 +2,9 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const ngrok = require('ngrok')
 
+// ＊ ngrokアカウントを作成し、Your Authtokenを設定することで実際の動作を確認できます
+const TOKEN = ''
+
 // ------------------------------
 
 const app = express()
@@ -28,11 +31,12 @@ app.listen(port, () => {
 
 const mySite = express()
 mySite.use(cookieParser())
-mySite.use(express.static('src/my-site', {
-  setHeaders: (res) => {
-    res.cookie('1stP cookie', 1, { httpOnly: true })
-  }
-}))
+mySite.set('view engine', 'ejs')
+mySite.get('/', (req, res) => {
+  res
+    .cookie('1stP cookie', 1, { httpOnly: true })
+    .render('index.ejs')
+})
 mySite.listen(3001, () => { console.log('[3001] OK') })
 
 // ------------------------------
@@ -42,6 +46,10 @@ otherSite.use(express.static('other-site'))
 otherSite.listen(3002, () => { console.log('[3002] OK') })
 
 !(async function () {
+  await ngrok.authtoken(TOKEN)
   const url = await ngrok.connect(3002)
   console.log(`[${url}] OK`)
+
+  // mySiteにurlを渡す
+  mySite.locals.resourceURL = url
 })()
