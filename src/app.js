@@ -1,4 +1,5 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
 const port = 3000
 
@@ -22,7 +23,12 @@ app.listen(port, () => {
 // ------------------------------
 
 const mySite = express()
-mySite.use(express.static('src/my-site'))
+mySite.use(cookieParser())
+mySite.use(express.static('src/my-site', {
+  setHeaders: (res) => {
+    res.cookie('1stP cookie', 1, { httpOnly: true })
+  }
+}))
 mySite.listen(3001, () => { console.log('[3001] OK') })
 
 const otherSite = express()
