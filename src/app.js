@@ -38,7 +38,7 @@ mySite.listen(3001, () => { console.log('[3001] OK') })
 // ------------------------------
 
 const otherSite = express()
-otherSite.use(express.static('src/other-site'))
+otherSite.use(express.static('other-site'))
 otherSite.listen(3002, () => { console.log('[3002] OK') })
 
 !(async function () {
