@@ -5,9 +5,68 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Site</title>
+  <style>
+    p {
+      margin: 0;
+    }
+    .flex {
+      display: flex;
+    }
+    .mb {
+      margin-bottom: 16px;
+    }
+  </style>
 </head>
 <body>
-  Hello My Site!!
-  <img src="<%= resourceURL %>/Smile_gray.jpg" alt="gorilla">
+  <div>
+    <h1>Hello My Site!!</h1>
+    <div class="mb">
+      <button id="SimpleReqBtn">Simple Request</button>
+      <button id="PreflightReqBtn">Preflight Request</button>
+    </div>
+    <div class="mb">
+      <div class="flex">
+        SimpleRequestResult----->
+        <p id="SimpleReqResult"></p>
+      </div>
+      <div class="flex">
+        PreflightRequestResult----->
+        <p id="PreflightReqResult"></p>
+      </div>
+    </div>
+    <div>
+      <img src="<%= resourceURL %>/Smile_gray.jpg" alt="gorilla">
+    </div>
+  </div>
+  <script>
+    const API_URL = 'http://localhost:3003'
+
+    // Simple Request
+    const SimpleReqBtn = document.getElementById('SimpleReqBtn')
+    const SimpleReqResult = document.getElementById('SimpleReqResult')
+    SimpleReqBtn.addEventListener('click', async () => {
+      try {
+        const result = await fetch(API_URL, { method: 'POST' }).then(res => res.json())
+        SimpleReqResult.innerHTML = JSON.stringify(result)
+      } catch (error) {
+        alert(error)
+      }
+    })
+
+    // Preflight Request
+    const PreflightReqBtn = document.getElementById('PreflightReqBtn')
+    const PreflightReqResult = document.getElementById('PreflightReqResult')
+    PreflightReqBtn.addEventListener('click', async () => {
+      try {
+        const result = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'MY-TEST': 'hoge' },
+        }).then(res => res.json())
+        PreflightReqResult.innerHTML = JSON.stringify(result)
+      } catch (error) {
+        alert(error)
+      }
+    })
+  </script>
 </body>
 </html>
