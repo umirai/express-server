@@ -3,11 +3,13 @@ const appServer = require('./appServer')
 const mySite = require('./mySite')
 const otherSite = require('./otherSite')
 const corsServer = require('./corsServer')
+const cacheServer = require('./cacheServer')
 
 appServer.listen(3000, () => { console.log('[3000] OK') })
 mySite.listen(3001, () => { console.log('[3001] OK') })
 otherSite.listen(3002, () => { console.log('[3002] OK') })
 corsServer.listen(3003, () => { console.log('[3003] OK') })
+cacheServer.listen(3004, () => { console.log('[3004] OK') })
 
 // --------------------------------------------------
 
