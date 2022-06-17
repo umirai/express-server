@@ -1,6 +1,6 @@
-const express = require('express')
+const express = require('express');
 
-const otherSite = express()
+const otherSite = express();
 otherSite.use(express.static('other-site', {
   setHeaders: (res) => {
     res
@@ -23,8 +23,8 @@ otherSite.use(express.static('other-site', {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
-      })
-  }
-}))
+      });
+  },
+}));
 
-module.exports = otherSite
+module.exports = otherSite;
