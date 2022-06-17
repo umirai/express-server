@@ -1,26 +1,26 @@
-const ngrok = require('ngrok')
-const appServer = require('./appServer')
-const mySite = require('./mySite')
-const otherSite = require('./otherSite')
-const corsServer = require('./corsServer')
-const cacheServer = require('./cacheServer')
+const ngrok = require('ngrok');
+const appServer = require('./appServer');
+const mySite = require('./mySite');
+const otherSite = require('./otherSite');
+const corsServer = require('./corsServer');
+const cacheServer = require('./cacheServer');
 
-appServer.listen(3000, () => { console.log('[3000] OK') })
-mySite.listen(3001, () => { console.log('[3001] OK') })
-otherSite.listen(3002, () => { console.log('[3002] OK') })
-corsServer.listen(3003, () => { console.log('[3003] OK') })
-cacheServer.listen(3004, () => { console.log('[3004] OK') })
+appServer.listen(3000, () => { console.log('[3000] OK'); });
+mySite.listen(3001, () => { console.log('[3001] OK'); });
+otherSite.listen(3002, () => { console.log('[3002] OK'); });
+corsServer.listen(3003, () => { console.log('[3003] OK'); });
+cacheServer.listen(3004, () => { console.log('[3004] OK'); });
 
 // --------------------------------------------------
 
 !(async function () {
   // [TODO]: ngrokアカウントを作成し、Your Authtokenを設定する
-  const TOKEN = ''
+  const TOKEN = '';
 
-  await ngrok.authtoken(TOKEN)
-  const url = await ngrok.connect(3002)
-  console.log(`[${url}] OK`)
+  await ngrok.authtoken(TOKEN);
+  const url = await ngrok.connect(3002);
+  console.log(`[${url}] OK`);
 
   // mySiteにurlを渡す
-  mySite.locals.resourceURL = url
-})()
+  mySite.locals.resourceURL = url;
+}());
